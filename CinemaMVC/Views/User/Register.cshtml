@@ -1,0 +1,32 @@
+﻿@model User
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group input-group">
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
+        @Html.TextBoxFor(model => model.Logins, new { @class = "form-control", placeholder = "Имя" })
+        @Html.ValidationMessageFor(model => model.Logins, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group input-group">
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
+        @Html.TextBoxFor(model => model.Passwords, new { @class = "form-control", placeholder = "Пароль" })
+    </div>
+
+    <div class="form-group input-group">
+        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+        @Html.Password("confirmPassword", "", new { @class = "form-control", placeholder = "Подтвердите пароль" })
+        @Html.ValidationMessageFor(model => model.Passwords, "", new { @class = "text-danger" })
+    </div>
+  
+    <button type="submit" class="btn btn-primary btn-block">Регистрация</button>
+
+}
+@using (Html.BeginForm("ReturnToHomePage", "Films"))
+{
+    <button type="submit" class="btn btn-secondary btn-block">Вернуться на главную</button>
+}
