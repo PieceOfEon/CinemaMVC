@@ -44,18 +44,15 @@ namespace CinemaMVC.Controllers
             Console.WriteLine(login, password); 
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
-                // Вернуть представление с сообщением об ошибке, например:
+                
                 ModelState.AddModelError("", "Введите имя и пароль.");
-                return View(); // Представление с формой логина
+                return View(); 
             }
-
-            // Здесь ваши проверки логина и пароля
-            // ...
 
             var claims = new List<Claim>
     {
         new Claim(ClaimTypes.Name, login),
-        // Добавьте другие необходимые клеймы
+        
     };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -63,14 +60,14 @@ namespace CinemaMVC.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            return RedirectToAction("Index", "Films"); // Редирект после успешной аутентификации
+            return RedirectToAction("Index", "Films"); 
         }
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Films"); // Редирект после разлогинивания
+            return RedirectToAction("Index", "Films"); 
         }
-        public async Task<IActionResult> Details(Film film) // Применяем Film вместо int id
+        public async Task<IActionResult> Details(Film film) 
         {
             if (film == null)
             {
