@@ -22,6 +22,11 @@ namespace CinemaMVC.Controllers
         {
             Console.WriteLine("LOGIN ALO");
             var films = await _context.Films.ToListAsync();
+            if (User.Identity.IsAuthenticated)
+            {
+                var username = User.Identity.Name;
+                ViewBag.Username = username;
+            }
             return View(films);
         }
         public IActionResult ReturnToHomePage()
@@ -60,7 +65,11 @@ namespace CinemaMVC.Controllers
 
             return RedirectToAction("Index", "Films"); // Редирект после успешной аутентификации
         }
-
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Films"); // Редирект после разлогинивания
+        }
         public async Task<IActionResult> Details(Film film) // Применяем Film вместо int id
         {
             if (film == null)
